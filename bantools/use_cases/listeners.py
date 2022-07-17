@@ -1,15 +1,15 @@
 from dataclasses import dataclass
 from datetime import datetime
-from typing import List, Any
+from typing import List
+
 from discord.member import Member
 
-from bantools.repositories.communications import ChannelCommunicator
-from bantools.repositories.discord import DiscordChannelRepository, MessageContent
-from bantools.messaging import warning_channel as messaging
+from bantools.cqrs.discord import get_member_reference_in_channel
 from bantools.globals import CHANNEL_TO_REPORT, CHANNEL_TO_SEARCH
-from bantools.cqrs.discord import (
-    get_member_reference_in_channel,
-)
+from bantools.messaging import warning_channel as messaging
+from bantools.repositories.communications import ChannelCommunicator
+from bantools.repositories.discord import (DiscordChannelRepository,
+                                           MessageContent)
 
 
 @dataclass
@@ -56,7 +56,6 @@ def count_references_of_memeber(
     ------
 
     """
-
     count: int = 0
     ref_urls: List[str] = list()
 
@@ -86,7 +85,6 @@ def get_user_references_in_message_list(
     ------
 
     """
-
     message_attribs: List[MessageAttrib] = list()
     for message in messages:
         attrib = MessageAttrib(message.id, message.text_content, message.create_at)
@@ -114,7 +112,6 @@ def usecase_did_user_already_signup(member: Member) -> None:
     ------
 
     """
-
     discord_repo = DiscordChannelRepository(member.bot, member.guild)
     logger = ChannelCommunicator(member.bot, CHANNEL_TO_REPORT)
 

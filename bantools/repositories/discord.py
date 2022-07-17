@@ -1,9 +1,9 @@
-from abc import ABC, abstractmethod
-from datetime import datetime
-from discord.ext.commands import Bot
-from discord import TextChannel, Message, Guild, utils
 from dataclasses import dataclass
+from datetime import datetime
 from typing import List
+
+from discord import Guild, Message, TextChannel, utils
+from discord.ext.commands import Bot
 
 MAX_MESSAGE_FETCH = 1000
 

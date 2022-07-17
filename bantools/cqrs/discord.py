@@ -1,6 +1,7 @@
 from typing import List
 
-from bantools.repositories.discord import DiscordChannelRepository, MessageContent
+from bantools.repositories.discord import (DiscordChannelRepository,
+                                           MessageContent)
 
 
 def get_member_reference_in_channel(
