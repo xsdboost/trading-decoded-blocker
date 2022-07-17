@@ -1,8 +1,7 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
-
 from discord.ext.commands import Bot
-from discord import TextChannel, Message, Guild
+from discord import TextChannel, Message, Guild, utils
 from dataclasses import dataclass
 from typing import List
 
@@ -20,6 +19,22 @@ class MessageContent:
 
 
 def convert_to_generic_metric(message: Message) -> MessageContent:
+    """
+    Parameters
+    ----------
+    message: Message
+        discord messages to convert
+
+    Returns
+    -------
+    MessageContent
+        discord message content encapsulated into generic message format
+
+    Raises
+    ------
+
+    """
+
     return MessageContent(
         message.id,
         message.content,
@@ -31,6 +46,23 @@ def convert_to_generic_metric(message: Message) -> MessageContent:
 
 
 def to_generic_messages(messages: List[Message]) -> List[MessageContent]:
+    """
+    Parameters
+    ----------
+    messages: List[Message]
+        list of discord messages to convert
+
+    Returns
+    -------
+    List[MessageContent]
+        list of message converted to generic message type fetch from channel
+
+    Raises
+    ------
+
+
+    """
+
     generic_messages = list()
 
     for message in messages:
@@ -47,11 +79,31 @@ class DiscordChannelRepository:
         self.guild: Guild = guild
 
     async def fetch_messages(
-        self, channel_id: int, row_limit: int = MAX_MESSAGE_FETCH
+        self, channel_name: str, row_limit: int = MAX_MESSAGE_FETCH
     ) -> List[MessageContent]:
+        """
+        Parameters
+        ----------
+        channel_name: str
+            dicord channel we will  fetch the data from
+
+        row_limit: int = MAX_MESSAGE_FETCH
+            the limit of records to fetch
+
+        Returns
+        -------
+        List[MessageContent]
+            list of message converted to generic message type fetch from channel
+
+        Raises
+        ------
+
+
+        """
 
         if row_limit > MAX_MESSAGE_FETCH:
 
+            channel_id = utils.get(self.guild.channels, name=channel_name)
             channel: TextChannel = self.coreBot.get_channel(channel_id)
             messages: List[Message] = await channel.history(limit=channel_id).flatten()
             generic_msgs = to_generic_messages(messages)

@@ -18,6 +18,7 @@ class MemberReferenceCount:
     count: int
     references: List[str]
 
+
 @dataclass
 class MessageAttrib:
     member_id: int
@@ -35,6 +36,24 @@ class MessageAttrib:
 def count_references_of_memeber(
     message_entries: List[MessageAttrib], member_name: str
 ) -> MemberReferenceCount:
+    """
+    Parameters
+    ----------
+    message_entries: List[MessageAttrib]
+        stats of attributes from discord message
+
+    member_name: str
+        user we're searching for in messages
+
+    Returns
+    -------
+    MemberReferenceCount
+        returns reference count object containing member_name, counts of occurances, and reference to jump_urls
+
+    Raises
+    ------
+
+    """
 
     count: int = 0
     ref_urls: List[str] = list()
@@ -50,6 +69,21 @@ def count_references_of_memeber(
 def get_user_references_in_message_list(
     messages: List[MessageContent],
 ) -> List[MessageAttrib]:
+    """
+    Parameters
+    ----------
+    messages: List[MessageContent]
+        Generic messages content
+
+    Returns
+    -------
+    MemberReferenceCount
+        get attributes from message
+
+    Raises
+    ------
+
+    """
 
     message_attribs: List[MessageAttrib] = list()
     for message in messages:
@@ -60,6 +94,24 @@ def get_user_references_in_message_list(
 
 
 def usecase_did_user_already_signup(member: Member) -> None:
+
+    """
+
+    This callable usecase determines if the newly joining member already joined and left
+
+    Parameters
+    ----------
+    member: Member
+        discord Member
+
+    Returns
+    -------
+    None
+
+    Raises
+    ------
+
+    """
 
     discord_repo = DiscordChannelRepository(member.bot, member.guild)
     warning_channel = ChannelCommunicator(member.bot, CHANNEL_TO_REPORT)
