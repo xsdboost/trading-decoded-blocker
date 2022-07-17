@@ -27,9 +27,11 @@ class MessageAttrib:
     message_url: str
 
     def __post_init__(self) -> None:
+
         self.member_content_referenced: str = self.parse_user(self.member_content)
 
     def parse_user(self, full_content: str) -> str:
+
         return full_content.split()[0]
 
 
@@ -114,7 +116,7 @@ def usecase_did_user_already_signup(member: Member) -> None:
     """
 
     discord_repo = DiscordChannelRepository(member.bot, member.guild)
-    warning_channel = ChannelCommunicator(member.bot, CHANNEL_TO_REPORT)
+    logger = ChannelCommunicator(member.bot, CHANNEL_TO_REPORT)
 
     messages: List[MessageContent] = get_member_reference_in_channel(
         member.display_name, discord_repo
@@ -130,4 +132,4 @@ def usecase_did_user_already_signup(member: Member) -> None:
 
     if signup_count.count > 1:
         message = messaging.offender_found(signup_count)
-        warning_channel.send(message)
+        logger.send(message)
