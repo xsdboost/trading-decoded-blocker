@@ -8,8 +8,7 @@ from bantools.cqrs.discord import get_member_reference_in_channel
 from bantools.globals import CHANNEL_TO_REPORT, CHANNEL_TO_SEARCH
 from bantools.messaging import warning_channel as messaging
 from bantools.repositories.communications import ChannelCommunicator
-from bantools.repositories.discord import (DiscordChannelRepository,
-                                           MessageContent)
+from bantools.repositories.discord import DiscordChannelRepository, MessageContent
 
 
 @dataclass
@@ -58,7 +57,6 @@ def count_references_of_memeber(
     """
     count: int = 0
     ref_urls: List[str] = list()
-
     for message in message_entries:
         if message.member_content_referenced == member_name:
             count = count + 1
@@ -112,8 +110,8 @@ def usecase_did_user_already_signup(member: Member) -> None:
     ------
 
     """
-    discord_repo = DiscordChannelRepository(member.bot, member.guild)
-    logger = ChannelCommunicator(member.bot, CHANNEL_TO_REPORT)
+    discord_repo = DiscordChannelRepository(member.guild)
+    logger = ChannelCommunicator(member.guild, CHANNEL_TO_REPORT)
 
     messages: List[MessageContent] = get_member_reference_in_channel(
         member.display_name, discord_repo
@@ -128,5 +126,4 @@ def usecase_did_user_already_signup(member: Member) -> None:
     )
 
     if signup_count.count > 1:
-        message = messaging.offender_found(signup_count)
-        logger.send(message)
+        logger.send(messaging.offender_found(signup_count))

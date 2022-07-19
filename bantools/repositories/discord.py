@@ -1,11 +1,11 @@
 from dataclasses import dataclass
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
 from discord import Guild, Message, TextChannel, utils
 from discord.ext.commands import Bot
 
-MAX_MESSAGE_FETCH = 1000
+global_channel_fetch_size = 1000
 
 
 @dataclass
@@ -34,7 +34,6 @@ def convert_to_generic_metric(message: Message) -> MessageContent:
     ------
 
     """
-
     return MessageContent(
         message.id,
         message.content,
@@ -62,7 +61,6 @@ def to_generic_messages(messages: List[Message]) -> List[MessageContent]:
 
 
     """
-
     generic_messages = list()
 
     for message in messages:
@@ -73,21 +71,24 @@ def to_generic_messages(messages: List[Message]) -> List[MessageContent]:
 
 
 class DiscordChannelRepository:
-    def __init__(self, bot: Bot, guild: Guild) -> None:
+    def __init__(self, guild: Guild) -> None:
 
-        self.coreBot: Bot = bot
         self.guild: Guild = guild
 
+    def _get_channel_by_name(self, channel_name: str) -> TextChannel:
+        channel_id: int = utils.get(self.guild.channels, name=channel_name)
+        return self.guild.get_channel(channel_id)
+
     async def fetch_messages(
-        self, channel_name: str, row_limit: int = MAX_MESSAGE_FETCH
-    ) -> List[MessageContent]:
+        self, channel_name: str, entry_limit: int = global_channel_fetch_size
+    ) -> Optional[List[MessageContent]]:
         """
         Parameters
         ----------
         channel_name: str
             dicord channel we will  fetch the data from
 
-        row_limit: int = MAX_MESSAGE_FETCH
+        entry_limit: int = MAX_MESSAGE_FETCH
             the limit of records to fetch
 
         Returns
@@ -98,14 +99,11 @@ class DiscordChannelRepository:
         Raises
         ------
 
-
         """
+        if entry_limit > global_channel_fetch_size:
+            channel = self._get_channel_by_name(channel_name)
+            messages: List[Message] = await channel.history(limit=channel.id).flatten()
 
-        if row_limit > MAX_MESSAGE_FETCH:
+            return to_generic_messages(messages)
 
-            channel_id = utils.get(self.guild.channels, name=channel_name)
-            channel: TextChannel = self.coreBot.get_channel(channel_id)
-            messages: List[Message] = await channel.history(limit=channel_id).flatten()
-            generic_msgs = to_generic_messages(messages)
-
-            return generic_msgs
+        return None

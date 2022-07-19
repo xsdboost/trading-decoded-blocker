@@ -1,7 +1,6 @@
 import os
 
-from bantools.exceptions import (EnvironmentVariableUnavaiable,
-                                 NullArgumentsNotAllowed)
+from bantools.exceptions import EnvironmentVariableUnavaiable, NullArgumentsNotAllowed
 
 
 def getenv_variable(variable_name: str) -> str:
