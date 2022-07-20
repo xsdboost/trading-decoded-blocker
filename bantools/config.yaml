@@ -1,0 +1,4 @@
+test_server:
+  searching_channel: user-signup
+  reporting_channel: admin-reporting
+  account_key: hklhdkjflshjkf

@@ -3,7 +3,6 @@ from datetime import datetime
 from typing import List, Optional
 
 from discord import Guild, Message, TextChannel, utils
-from discord.ext.commands import Bot
 
 global_channel_fetch_size = 1000
 
