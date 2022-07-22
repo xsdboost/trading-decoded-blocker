@@ -8,7 +8,7 @@ class ConfigType(Enum):
 
 
 class Config:
-    ...
+    pass
 
 
 def get_config(config_type: ConfigType, file_path: str, environ: str = None):
