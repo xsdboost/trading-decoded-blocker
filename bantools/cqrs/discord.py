@@ -2,14 +2,17 @@ from typing import List, Optional
 from bantools.repositories.discord import DiscordChannelRepository, MessageContent
 
 
-def get_member_reference_in_channel(
-    member_name: str, discord_repo: DiscordChannelRepository
+async def get_member_reference_in_channel(
+    member_name: str, channel_name: str, discord_repo: DiscordChannelRepository
 ) -> List[MessageContent]:
     """
     Parameters
     ----------
     member_name : str
         member to search in repo
+
+    channel_name: str
+        channel name
 
     discord_repo : DiscordChannelRepository
         discord repo that we will be sourcing from
@@ -32,7 +35,7 @@ def get_member_reference_in_channel(
             return False
 
     entries: Optional[List[MessageContent]] = await discord_repo.fetch_messages(
-        CHANNEL_TO_SEARCH, 1000
+        channel_name, 1000
     )
 
     return list(filter(name_in_text, entries))

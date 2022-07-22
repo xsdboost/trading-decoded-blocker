@@ -75,8 +75,7 @@ class DiscordChannelRepository:
         self.guild: Guild = guild
 
     def _get_channel_by_name(self, channel_name: str) -> TextChannel:
-        channel_id: int = utils.get(self.guild.channels, name=channel_name)
-        return self.guild.get_channel(channel_id)
+        return utils.get(self.guild.channels, name=channel_name)
 
     async def fetch_messages(
         self, channel_name: str, entry_limit: int = global_channel_fetch_size
@@ -99,10 +98,14 @@ class DiscordChannelRepository:
         ------
 
         """
-        if entry_limit > global_channel_fetch_size:
-            channel = self._get_channel_by_name(channel_name)
-            messages: List[Message] = await channel.history(limit=channel.id).flatten()
 
-            return to_generic_messages(messages)
+        entry_limit = (
+            entry_limit
+            if entry_limit > global_channel_fetch_size
+            else global_channel_fetch_size
+        )
 
-        return None
+        channel = self._get_channel_by_name(channel_name)
+        messages: List[Message] = await channel.history(limit=entry_limit).flatten()
+
+        return to_generic_messages(messages)

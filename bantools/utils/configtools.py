@@ -1,25 +1,29 @@
 from enum import Enum, auto
-from typing import Dict
 from yaml.loader import SafeLoader
 import yaml
 
 
 class ConfigType(Enum):
-    BAN = auto()
+    BAN = 1
 
-def get_config(config_type: ConfigType, file_path: str, environ: str):
 
+class Config:
+    ...
+
+
+def get_config(config_type: ConfigType, file_path: str, environ: str = None):
+    conf = Config()
     if config_type == ConfigType.BAN:
 
         with open(file_path) as f:
             config = yaml.load(f, Loader=SafeLoader)
-            conf = BanningtoolConfig(config[environ])
+
+            if environ is not None:
+                config = config[environ]
+
+            for attrib_name, attrib_value in config.items():
+                setattr(conf, attrib_name, attrib_value)
     else:
         raise NotImplementedError("Config type not supported")
 
     return conf
-
-class BanningtoolConfig:
-    def __init__(self, attribs: Dict[str, str]):
-        for attrib_name, attrib_values in attribs:
-            setattr(self, attrib_name, attrib_values)
