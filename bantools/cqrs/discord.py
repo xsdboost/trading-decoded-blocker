@@ -3,7 +3,23 @@ from typing import List, Optional
 from bantools.repositories.discord import DiscordChannelRepository, MessageContent
 
 
-def name_in_text(member_name: str, message: MessageContent):
+def name_in_text(member_name: str, message: MessageContent) -> bool:
+    """
+
+    This function contains business logic for determining if the member is referenced in the text
+
+    Parameters
+    ----------
+    member_name: str
+        memeber name that we will check for in text
+
+    message: MessageContent
+        Required content of discord message
+
+    Returns
+    -------
+
+    """
     if member_name.lower() in message.text_content.lower().split():
         return True
     else:
