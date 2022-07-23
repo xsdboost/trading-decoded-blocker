@@ -1,5 +1,5 @@
-from discord import utils, Guild, TextChannel, Embed
-
+from discord import utils, Guild, TextChannel
+from bantools.messaging_content.warning_channel import OfferMessage
 
 class ChannelCommunicator:
     def __init__(self, guild: Guild, channel_name: str):
@@ -17,5 +17,5 @@ class ChannelCommunicator:
     def channel_name(self, channel_name: str):
         self.channel = self._get_channel_by_name(channel_name)
 
-    async def send(self, message: Embed):
-        await self.channel.send(embed=message)
+    async def send(self, offend_message: OfferMessage):
+        await self.channel.send(embed=offend_message.content)

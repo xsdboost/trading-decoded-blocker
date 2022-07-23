@@ -1,10 +1,14 @@
-from typing import List
+from dataclasses import dataclass
 from discord import Embed, Color
-
 from bantools.use_cases.listeners import MemberReferenceCount
 
 
-def offender_found(member_reference: MemberReferenceCount) -> Embed:
+@dataclass
+class OfferMessage:
+    content: Embed
+
+
+def offender_found(member_reference: MemberReferenceCount) -> OfferMessage:
     """
     Parameters
     ----------
@@ -30,4 +34,6 @@ def offender_found(member_reference: MemberReferenceCount) -> Embed:
     for ref_id, reference in enumerate(member_reference.references, start=1):
         embed.add_field(name=f"Reference {ref_id}:", value=reference, inline=False)
 
-    return embed
+    message = OfferMessage(embed)
+
+    return message
