@@ -1,4 +1,4 @@
-from discord import utils, Guild, TextChannel
+from discord import utils, Guild, TextChannel, Embed, Color
 from bantools.messaging_content.warning_channel import OfferMessage
 
 
@@ -38,4 +38,13 @@ class ChannelCommunicator:
         None
 
         """
-        await self.channel.send(embed=offend_message.content)
+        embed = Embed(
+            title=offend_message.title,
+            color=Color.red(),
+            description=offend_message.description,
+        )
+
+        for field in offend_message.reference_links:
+            embed.add_field(name=field.name, value=field.value)
+
+        await self.channel.send(embed=embed)
