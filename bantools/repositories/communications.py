@@ -45,6 +45,6 @@ class ChannelCommunicator:
         )
 
         for field in offend_message.reference_links:
-            embed.add_field(name=field.name, value=field.value)
+            embed.add_field(name=field.name, value=field.value, inline=False)
 
         await self.channel.send(embed=embed)
