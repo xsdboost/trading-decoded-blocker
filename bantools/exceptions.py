@@ -18,9 +18,9 @@ class NullArgumentsNotAllowed(BlockerToolsExceptions):
     ...
 
 
-class EnvironmentVariableException(UtilException):
+class ConfException(Exception):
     ...
 
 
-class EnvironmentVariableUnavaiable(EnvironmentVariableException):
+class ConfigFileMissingOrMalformed(ConfException):
     ...

@@ -23,7 +23,7 @@ def offender_found(member_reference: MemberReferenceCount) -> Embed:
     """
 
     embed = Embed(
-        title=f"Possible re- signup found",
+        title=f"Possible duplicate signups found",
         color=Color.red(),
         description=f"""There were {member_reference.count} entries found for user: **{member_reference.member_name}**\n""",
     )
