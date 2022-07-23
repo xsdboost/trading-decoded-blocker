@@ -1,5 +1,13 @@
+from functools import partial
 from typing import List, Optional
 from bantools.repositories.discord import DiscordChannelRepository, MessageContent
+
+
+def name_in_text(member_name: str, message: MessageContent):
+    if member_name.lower() in message.text_content.lower().split():
+        return True
+    else:
+        return False
 
 
 async def get_member_reference_in_channel(
@@ -28,14 +36,10 @@ async def get_member_reference_in_channel(
 
     """
 
-    def name_in_text(message: MessageContent):
-        if member_name.lower() in message.text_content.lower().split():
-            return True
-        else:
-            return False
-
     entries: Optional[List[MessageContent]] = await discord_repo.fetch_messages(
         channel_name, 1000
     )
 
-    return list(filter(name_in_text, entries))
+    name_has_text = partial(name_in_text, member_name)
+
+    return list(filter(name_has_text, entries))

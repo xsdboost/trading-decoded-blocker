@@ -1,5 +1,5 @@
 from discord import utils, Guild, TextChannel, Embed, Color
-from bantools.messaging_content.warning_channel import OfferMessage
+from bantools.messaging.warning_text import OfferMessage
 
 
 class ChannelCommunicator:

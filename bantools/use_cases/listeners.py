@@ -8,9 +8,9 @@ from bantools.domain.userinfo import (
     count_references_of_memeber,
     MemberReferenceCount,
 )
-from bantools.messaging_content import warning_channel as messaging
+from bantools.messaging import warning_text as messaging
 from bantools.utils.configtools import Config
-from bantools.repositories.communications import ChannelCommunicator
+from bantools.messaging.communications import ChannelCommunicator
 from bantools.repositories.discord import DiscordChannelRepository, MessageContent
 
 
