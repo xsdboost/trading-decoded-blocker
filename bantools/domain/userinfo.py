@@ -21,7 +21,6 @@ class MessageAttrib:
     message_url: str
 
     def __post_init__(self) -> None:
-
         self.member_name: str = parser.new_user_logger_rule_001(self.member_content)
 
 
