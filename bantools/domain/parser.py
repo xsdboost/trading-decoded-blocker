@@ -1,4 +1,4 @@
-def new_user_logger_parser_rule_001(message_text: str) -> str:
+def new_user_logger_rule_001(message_text: str) -> str:
     """
     Contains rules for parsing member name from discord message
 

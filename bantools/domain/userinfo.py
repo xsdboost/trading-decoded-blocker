@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import List, Optional
 
-from bantools.domain.parsers import new_user_logger_parser_rule_001
+from bantools.domain import parser
 from bantools.repositories.discord import MessageContent
 
 
@@ -22,7 +22,7 @@ class MessageAttrib:
 
     def __post_init__(self) -> None:
 
-        self.member_name: str = new_user_logger_parser_rule_001(self.member_content)
+        self.member_name: str = parser.new_user_logger_rule_001(self.member_content)
 
 
 def count_references_of_memeber(

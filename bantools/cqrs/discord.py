@@ -1,7 +1,7 @@
 from functools import partial
 from typing import List, Optional
 
-from bantools.domain.parsers import new_user_logger_parser_rule_001
+from bantools.domain import parser
 from bantools.repositories.discord import DiscordChannelRepository, MessageContent
 
 
@@ -22,10 +22,7 @@ def name_in_text(member_name: str, message: MessageContent) -> bool:
     -------
 
     """
-    if (
-        member_name.lower()
-        == new_user_logger_parser_rule_001(message.text_content).lower()
-    ):
+    if member_name == parser.new_user_logger_rule_001(message.text_content):
         return True
     else:
         return False
@@ -58,7 +55,7 @@ async def get_member_reference_in_channel(
     """
 
     entries: Optional[List[MessageContent]] = await discord_repo.fetch_messages(
-        channel_name, 1000
+        channel_name, 5000
     )
 
     name_has_text = partial(name_in_text, member_name)
