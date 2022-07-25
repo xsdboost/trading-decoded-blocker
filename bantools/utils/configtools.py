@@ -7,7 +7,7 @@ from bantools.exceptions import ConfigFileMissingOrMalformed
 
 
 class Config:
-    def __init__(self, project_name: str,  config_resource: str) -> None:
+    def __init__(self, project_name: str, config_resource: str) -> None:
         self.__get_config(project_name, config_resource)
 
     @staticmethod
@@ -33,7 +33,8 @@ class Config:
                 config: Dict[Any, Any] = yaml.load(file_pointer, Loader=SafeLoader)
             except Exception as e:
                 raise ConfigFileMissingOrMalformed(
-                    f"Config resource file malformed or missing values, resource at {config_resource}", e
+                    f"Config resource file malformed or missing values, resource at {config_resource}",
+                    e,
                 )
 
             return config
@@ -65,7 +66,7 @@ class Config:
                 )
             setattr(self, attrib_name, attrib_value)
 
-    def __get_config(self, project_name: str,  config_resource: str):
+    def __get_config(self, project_name: str, config_resource: str):
         """
 
         Parameters

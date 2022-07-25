@@ -22,7 +22,10 @@ def name_in_text(member_name: str, message: MessageContent) -> bool:
     -------
 
     """
-    if member_name.lower() == new_user_logger_parser_rule_001(message.text_content).lower():
+    if (
+        member_name.lower()
+        == new_user_logger_parser_rule_001(message.text_content).lower()
+    ):
         return True
     else:
         return False

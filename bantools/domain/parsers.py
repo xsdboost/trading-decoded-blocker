@@ -2,7 +2,7 @@ def new_user_logger_parser_rule_001(message_text: str) -> str:
     """
     Contains rules for parsing member name from discord message
 
-    Important: This method should be the only member name parser of the project any need for parsing should refer heres
+    Important: This method should be the only member name parser of the project any need for parsing should refer here
 
     Parameters
     ----------
@@ -21,4 +21,3 @@ def new_user_logger_parser_rule_001(message_text: str) -> str:
     """
 
     return message_text.split()[0]
-

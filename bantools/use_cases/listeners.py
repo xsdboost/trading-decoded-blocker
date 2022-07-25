@@ -1,4 +1,3 @@
-import os
 from typing import List, Optional
 from discord.message import Message
 from bantools.cqrs.discord import get_member_reference_in_channel
@@ -55,9 +54,13 @@ async def usecase_did_user_already_signup(message: Message) -> None:
         member_name, config.watch_channel, discord_repo
     )
 
-    user_message_entries: List[MessageAttrib] = get_user_references_in_message_list(messages)
+    user_message_entries: List[MessageAttrib] = get_user_references_in_message_list(
+        messages
+    )
 
-    signup_count: MemberReferenceCount = count_references_of_memeber(user_message_entries)
+    signup_count: MemberReferenceCount = count_references_of_memeber(
+        user_message_entries
+    )
 
     if signup_count is not None and signup_count.count > 1:
         await logger.send(messaging.offender_found(signup_count))

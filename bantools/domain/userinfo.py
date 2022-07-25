@@ -25,7 +25,9 @@ class MessageAttrib:
         self.member_name: str = new_user_logger_parser_rule_001(self.member_content)
 
 
-def count_references_of_memeber(message_entries: Optional[List[MessageAttrib]]) -> Optional[MemberReferenceCount]:
+def count_references_of_memeber(
+    message_entries: Optional[List[MessageAttrib]],
+) -> Optional[MemberReferenceCount]:
     """
     Parameters
     ----------
