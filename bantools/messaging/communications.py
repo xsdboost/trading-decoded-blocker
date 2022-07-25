@@ -44,7 +44,7 @@ class ChannelCommunicator:
         )
 
         embed.set_author(name="Duplicates trail entries")
-        embed.set_image(url="https://i.imgur.com/SA9AV32.gif")
+        embed.set_image(url="https://media3.giphy.com/media/wYyTHMm50f4Dm/giphy.gif?cid=ecf05e47yz5qxgjlg0snlf5jr3si98xaond8zub8zoj4oaj8&rid=giphy.gif")
 
         for field in offend_message.reference_links:
             embed.add_field(name=field.name, value=field.value, inline=False)
