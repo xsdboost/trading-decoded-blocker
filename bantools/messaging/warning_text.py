@@ -35,7 +35,7 @@ def offender_found(member_reference: MemberReferenceCount) -> OfferMessage:
 
     fields: List[Field] = list()
     for ref_id, reference in enumerate(member_reference.references, start=1):
-        field = Field(name=f"Reference {ref_id}:", value=reference)
+        field = Field(name=f"Link {ref_id}:", value=reference)
         fields.append(field)
 
     description = f"There were {member_reference.count} entries found for user: **{member_reference.member_name}**\n"
