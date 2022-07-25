@@ -29,12 +29,12 @@ def filter_rule_contains_name(member_name: str, message: MessageContent) -> bool
 
 
 async def get_member_reference_in_channel(
-    member_name: str, channel_name: str, discord_repo: DiscordChannelRepository
+    search_text: str, channel_name: str, discord_repo: DiscordChannelRepository
 ) -> List[MessageContent]:
     """
     Parameters
     ----------
-    member_name : str
+    search_text : str
         member to search in repo
 
     channel_name: str
@@ -59,5 +59,5 @@ async def get_member_reference_in_channel(
     )
 
     return list(
-        filter(func.partial(filter_rule_contains_name, member_name), entries)
+        filter(func.partial(filter_rule_contains_name, search_text), entries)
     )
