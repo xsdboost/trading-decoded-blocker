@@ -1,11 +1,11 @@
-from functools import partial
+import functools as func
 from typing import List, Optional
 
 from bantools.domain import parser
 from bantools.repositories.discord import DiscordChannelRepository, MessageContent
 
 
-def name_in_text(member_name: str, message: MessageContent) -> bool:
+def filter_rule_text_contains_name(member_name: str, message: MessageContent) -> bool:
     """
 
     This function contains business logic for determining if the member is referenced in the text
@@ -58,6 +58,6 @@ async def get_member_reference_in_channel(
         channel_name, 5000
     )
 
-    name_has_text = partial(name_in_text, member_name)
-
-    return list(filter(name_has_text, entries))
+    return list(
+        filter(func.partial(filter_rule_text_contains_name, member_name), entries)
+    )
