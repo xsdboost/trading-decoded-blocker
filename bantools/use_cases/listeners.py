@@ -1,7 +1,7 @@
 from typing import List, Optional
 from discord.message import Message
 from bantools.cqrs.discord import get_member_reference_in_channel
-from bantools.domain.parsers import new_user_logger_parser_rule_001
+from bantools.domain import parser
 from bantools.domain.userinfo import (
     MessageAttrib,
     get_user_references_in_message_list,
@@ -45,7 +45,7 @@ async def usecase_did_user_already_signup(message: Message) -> None:
     """
 
     member = message.author
-    member_name = new_user_logger_parser_rule_001(message.content)
+    member_name = parser.new_user_logger_rule_001(message.content)
 
     discord_repo = DiscordChannelRepository(member.guild)
     logger = ChannelCommunicator(member.guild, config.reporting_channel)
