@@ -39,7 +39,7 @@ class ChannelCommunicator:
 
         """
         embed = Embed(
-            color=Color.red(),
+            color=0x5EEEAE,
             description=offend_message.description,
             title="Duplicate 7-day trial entries"
         )
