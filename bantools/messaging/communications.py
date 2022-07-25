@@ -39,10 +39,12 @@ class ChannelCommunicator:
 
         """
         embed = Embed(
-            title=offend_message.title,
             color=Color.red(),
             description=offend_message.description,
         )
+
+        embed.set_author(name="Duplicates trail entries")
+        embed.set_image(url="https://i.imgur.com/SA9AV32.gif")
 
         for field in offend_message.reference_links:
             embed.add_field(name=field.name, value=field.value, inline=False)

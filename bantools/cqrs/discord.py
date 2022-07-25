@@ -1,5 +1,7 @@
 from functools import partial
 from typing import List, Optional
+
+from bantools.domain.parsers import new_user_logger_parser_rule_001
 from bantools.repositories.discord import DiscordChannelRepository, MessageContent
 
 
@@ -20,7 +22,7 @@ def name_in_text(member_name: str, message: MessageContent) -> bool:
     -------
 
     """
-    if member_name.lower() in message.text_content.lower().split():
+    if member_name.lower() == new_user_logger_parser_rule_001(message.text_content).lower():
         return True
     else:
         return False

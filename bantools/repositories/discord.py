@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from discord import Guild, Message, TextChannel, utils
 
-global_channel_fetch_size = 1000
+global_channel_fetch_size = 10000
 
 
 @dataclass
@@ -101,7 +101,7 @@ class DiscordChannelRepository:
 
         entry_limit = (
             entry_limit
-            if entry_limit > global_channel_fetch_size
+            if entry_limit < global_channel_fetch_size
             else global_channel_fetch_size
         )
 

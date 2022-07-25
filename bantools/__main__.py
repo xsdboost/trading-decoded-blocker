@@ -2,14 +2,15 @@ import os.path
 
 import discord
 from discord.ext.commands import Bot
+from pkg_resources import resource_stream, resource_filename, resource_dir
+
 from bantools.utils.configtools import Config
 from bantools.use_cases.listeners import usecase_did_user_already_signup
 
 
 def main():
 
-    config_file_path = os.path.join(os.path.dirname(__file__), "config.yaml")
-    config = Config(config_file_path)
+    config = Config(project_name="bantools", config_resource="resources/config.yaml")
 
     intents = discord.Intents.default()
     intents.members = True
