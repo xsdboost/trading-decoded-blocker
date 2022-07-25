@@ -5,14 +5,14 @@ from bantools.domain import parser
 from bantools.repositories.discord import DiscordChannelRepository, MessageContent
 
 
-def filter_rule_contains_name(member_name: str, message: MessageContent) -> bool:
+def filter_rule_contains_name(search_text: str, message: MessageContent) -> bool:
     """
 
     This function contains business logic for determining if the member is referenced in the text
 
     Parameters
     ----------
-    member_name: str
+    search_text: str
         memeber name that we will check for in text
 
     message: MessageContent
@@ -22,7 +22,7 @@ def filter_rule_contains_name(member_name: str, message: MessageContent) -> bool
     -------
 
     """
-    if member_name == parser.new_user_logger_rule_001(message.text_content):
+    if search_text == parser.new_user_logger_rule_001(message.text_content):
         return True
     else:
         return False
