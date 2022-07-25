@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
 from bantools.repositories.discord import MessageContent
 
@@ -29,8 +29,8 @@ class MessageAttrib:
 
 
 def count_references_of_memeber(
-    message_entries: List[MessageAttrib], member_name: str
-) -> MemberReferenceCount:
+    message_entries: Optional[List[MessageAttrib]], member_name: str
+) -> Optional[MemberReferenceCount]:
     """
     Parameters
     ----------
@@ -49,6 +49,9 @@ def count_references_of_memeber(
     ------
 
     """
+    if message_entries is None or len(message_entries) == 0:
+        return None
+
     count: int = 0
     ref_urls: List[str] = list()
     for message in message_entries:
@@ -60,8 +63,8 @@ def count_references_of_memeber(
 
 
 def get_user_references_in_message_list(
-    messages: List[MessageContent],
-) -> List[MessageAttrib]:
+    messages: Optional[List[MessageContent]],
+) -> Optional[List[MessageAttrib]]:
     """
     Parameters
     ----------
@@ -77,6 +80,9 @@ def get_user_references_in_message_list(
     ------
 
     """
+    if messages is None or len(messages) == 0:
+        return None
+
     message_attribs: List[MessageAttrib] = list()
     for message in messages:
         attrib = MessageAttrib(

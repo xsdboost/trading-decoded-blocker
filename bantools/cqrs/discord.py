@@ -28,7 +28,7 @@ def name_in_text(member_name: str, message: MessageContent) -> bool:
 
 async def get_member_reference_in_channel(
     member_name: str, channel_name: str, discord_repo: DiscordChannelRepository
-) -> List[MessageContent]:
+) -> Optional[List[MessageContent]]:
     """
     Parameters
     ----------

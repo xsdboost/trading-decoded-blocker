@@ -1,5 +1,5 @@
 import os
-from typing import List
+from typing import List, Optional
 from discord.message import Message
 from bantools.cqrs.discord import get_member_reference_in_channel
 from bantools.domain.userinfo import (
@@ -50,7 +50,7 @@ async def usecase_did_user_already_signup(message: Message) -> None:
     discord_repo = DiscordChannelRepository(member.guild)
     logger = ChannelCommunicator(member.guild, config.reporting_channel)
 
-    messages: List[MessageContent] = await get_member_reference_in_channel(
+    messages: Optional[List[MessageContent]] = await get_member_reference_in_channel(
         member_name, config.watch_channel, discord_repo
     )
 
@@ -62,5 +62,5 @@ async def usecase_did_user_already_signup(message: Message) -> None:
         user_message_entries, member.display_name
     )
 
-    if signup_count.count > 1:
+    if signup_count is not None and signup_count.count > 1:
         await logger.send(messaging.offender_found(signup_count))
