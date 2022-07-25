@@ -3,7 +3,7 @@ from bantools.messaging.warning_text import OfferMessage
 
 
 class ChannelCommunicator:
-    def __init__(self, guild: Guild, channel_name: str):
+    def __init__(self, guild: Guild, channel_name: str) -> None:
         self.guild: Guild = guild
         self.channel: TextChannel = self._get_channel_by_name(channel_name)
 
