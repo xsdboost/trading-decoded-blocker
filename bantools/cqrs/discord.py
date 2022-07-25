@@ -5,7 +5,7 @@ from bantools.domain import parser
 from bantools.repositories.discord import DiscordChannelRepository, MessageContent
 
 
-def filter_rule_text_contains_name(member_name: str, message: MessageContent) -> bool:
+def filter_rule_contains_name(member_name: str, message: MessageContent) -> bool:
     """
 
     This function contains business logic for determining if the member is referenced in the text
@@ -59,5 +59,5 @@ async def get_member_reference_in_channel(
     )
 
     return list(
-        filter(func.partial(filter_rule_text_contains_name, member_name), entries)
+        filter(func.partial(filter_rule_contains_name, member_name), entries)
     )
