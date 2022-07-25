@@ -4,6 +4,8 @@ from typing import List, Optional
 
 from discord import Guild, Message, TextChannel, utils
 
+from bantools.exceptions import RepositoryException
+
 global_channel_fetch_size = 10000
 
 
@@ -104,8 +106,14 @@ class DiscordChannelRepository:
             if entry_limit < global_channel_fetch_size
             else global_channel_fetch_size
         )
+        try:
+            channel = self._get_channel_by_name(channel_name)
+            messages: List[Message] = await channel.history(limit=entry_limit).flatten()
 
-        channel = self._get_channel_by_name(channel_name)
-        messages: List[Message] = await channel.history(limit=entry_limit).flatten()
+        except Exception as e:
+            raise RepositoryException(
+                f"DiscordChannelRepository.fetch_messages failed to fetch message entries, "
+                f"failing with the following error: {e}"
+            )
 
         return to_generic_messages(messages)
