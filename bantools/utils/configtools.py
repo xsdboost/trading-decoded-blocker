@@ -66,7 +66,7 @@ class Config:
                 )
             setattr(self, attrib_name, attrib_value)
 
-    def __get_config(self, project_name: str, config_resource: str):
+    def __get_config(self, project_name: str, config_resource: str) -> None:
         """
 
         Parameters
