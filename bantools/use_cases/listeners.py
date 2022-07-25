@@ -50,7 +50,7 @@ async def usecase_did_user_already_signup(message: Message) -> None:
     discord_repo = DiscordChannelRepository(member.guild)
     logger = ChannelCommunicator(member.guild, config.reporting_channel)
 
-    messages: Optional[List[MessageContent]] = await get_member_reference_in_channel(
+    messages: List[MessageContent] = await get_member_reference_in_channel(
         member_name, config.watch_channel, discord_repo
     )
 
