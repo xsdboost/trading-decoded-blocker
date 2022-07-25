@@ -43,7 +43,7 @@ class ChannelCommunicator:
             description=offend_message.description,
         )
 
-        embed.set_author(name="Duplicates trail entries")
+        embed.set_author(name="Duplicate 7-day trial entries")
         embed.set_image(
             url="https://media3.giphy.com/media/wYyTHMm50f4Dm/giphy.gif?cid=ecf05e47yz5qxgjlg0snlf5jr3si98xaond8zub8zoj4oaj8&rid=giphy.gif"
         )
