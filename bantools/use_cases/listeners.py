@@ -39,10 +39,10 @@ async def usecase_did_user_already_signup(message: Message) -> None:
         return
 
     """
-    
-    Note: if we are reacting to messages sent to the channel then we need to 
-    parse the message to get the memeber from it's content 
-    
+
+    Note: if we are reacting to messages sent to the channel then we need to
+    parse the message to get the memeber from it's content
+
     """
     member_name = message.content.split()[0]
     member = message.author

@@ -25,11 +25,10 @@ class Config:
         ----------
             ConfigFileMissingOrMalformed
                 thrown if file could not be found or it is malformed in some way
-
         """
         with open(file_path) as file_pointer:
             try:
-                config = yaml.load(file_pointer, Loader=SafeLoader)
+                config: Dict[Any, Any] = yaml.load(file_pointer, Loader=SafeLoader)
             except Exception as e:
                 raise ConfigFileMissingOrMalformed(
                     f"Config file malformed or missing value, file at {file_path}", e
@@ -77,6 +76,5 @@ class Config:
         None
 
         """
-
         config: Dict[Any, Any] = self.__load_file(file_path)
         self.__set_attrib(config)

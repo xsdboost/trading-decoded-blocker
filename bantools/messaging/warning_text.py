@@ -39,7 +39,7 @@ def offender_found(member_reference: MemberReferenceCount) -> OfferMessage:
         field = Field(name=f"Reference {ref_id}:", value=reference)
         fields.append(field)
 
-    title = f"Possible duplicate signups found"
+    title = "Possible duplicate signups found"
     description = f"There were {member_reference.count} entries found for user: **{member_reference.member_name}**\n"
     message = OfferMessage(title, description, fields)
 
