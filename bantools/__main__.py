@@ -1,8 +1,7 @@
 import discord
-from discord.ext.commands import Bot
-
+from discord.ext.commands import Bot, Context
 from bantools.utils.configtools import Config
-from bantools.use_cases.listeners import usecase_did_user_already_signup
+from bantools.use_cases.listeners import usecase_did_user_already_signup, search_for_references
 
 
 def main():
@@ -12,8 +11,12 @@ def main():
     intents = discord.Intents.default()
     intents.members = True
 
-    new_account_validator = Bot(command_prefix="-", intents=intents)
+    new_account_validator = Bot(command_prefix="/", intents=intents)
     new_account_validator.add_listener(usecase_did_user_already_signup, "on_message")
+
+    @new_account_validator.command(pass_context=True, aliases=['trialsearch'])
+    async def chickennuggets(ctx: Context, username: str):
+        await search_for_references(ctx.guild, username, config)
 
     new_account_validator.run(config.account_key)
 

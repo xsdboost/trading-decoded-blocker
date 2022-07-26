@@ -1,4 +1,6 @@
 from typing import List, Optional
+
+from discord import Guild
 from discord.message import Message
 from bantools.cqrs.discord import get_member_reference_in_channel
 from bantools.domain import parser
@@ -14,10 +16,46 @@ from bantools.messaging.communications import ChannelCommunicator
 from bantools.repositories.discord import DiscordChannelRepository, MessageContent
 
 
+async def search_for_references(guild: Guild, member_name: str, config: Config) -> None:
+    """
+    This callable usecase determines if the newly joining member already joined and left
+
+    Parameters
+    ----------
+    guild: Guild
+        Server Guild
+
+    member_name: str
+        the member name being searched for
+
+    config: Config
+        runtime configuration
+
+    Returns
+    -------
+
+    """
+    discord_repo = DiscordChannelRepository(guild)
+    logger = ChannelCommunicator(guild, config.reporting_channel)
+
+    messages: List[MessageContent] = await get_member_reference_in_channel(
+        member_name, config.watch_channel, discord_repo
+    )
+
+    user_message_entries: List[MessageAttrib] = get_user_references_in_message_list(
+        messages
+    )
+
+    signup_count: MemberReferenceCount = count_references_of_memeber(
+        user_message_entries
+    )
+
+    if signup_count is not None and signup_count.count > 1:
+        await logger.send(messaging.offender_found(signup_count))
+
+
 async def usecase_did_user_already_signup(message: Message) -> None:
     """
-
-    This callable usecase determines if the newly joining member already joined and left
 
     Parameters
     ----------
@@ -44,23 +82,8 @@ async def usecase_did_user_already_signup(message: Message) -> None:
 
     """
 
-    member = message.author
+    guild = message.author.guild
     member_name = parser.new_user_logger_rule_001(message.content)
 
-    discord_repo = DiscordChannelRepository(member.guild)
-    logger = ChannelCommunicator(member.guild, config.reporting_channel)
+    await search_for_references(guild, member_name, config)
 
-    messages: List[MessageContent] = await get_member_reference_in_channel(
-        member_name, config.watch_channel, discord_repo
-    )
-
-    user_message_entries: List[MessageAttrib] = get_user_references_in_message_list(
-        messages
-    )
-
-    signup_count: MemberReferenceCount = count_references_of_memeber(
-        user_message_entries
-    )
-
-    if signup_count is not None and signup_count.count > 1:
-        await logger.send(messaging.offender_found(signup_count))
