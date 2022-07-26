@@ -11,14 +11,14 @@ def main():
     intents = discord.Intents.default()
     intents.members = True
 
-    new_account_validator = Bot(command_prefix="/", intents=intents)
-    new_account_validator.add_listener(usecase_did_user_already_signup, "on_message")
+    validator = Bot(command_prefix="/", intents=intents)
+    validator.add_listener(usecase_did_user_already_signup, "on_message")
 
-    @new_account_validator.command(pass_context=True, aliases=['trialsearch'])
+    @validator.command(pass_context=True, aliases=['trialsearch'])
     async def chickennuggets(ctx: Context, username: str):
         await search_for_references(ctx.guild, username, config)
 
-    new_account_validator.run(config.account_key)
+    validator.run(config.account_key)
 
 
 if __name__ == "__main__":
