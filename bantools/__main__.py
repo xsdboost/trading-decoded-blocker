@@ -6,10 +6,10 @@ from bantools.use_cases.listeners import usecase_did_user_already_signup, search
 
 def main():
 
-    config = Config(project_name="bantools", config_resource="resources/config.yaml")
-
     intents = discord.Intents.default()
     intents.members = True
+
+    config = Config(project_name="bantools", config_resource="resources/config.yaml")
 
     validator = Bot(command_prefix="/", intents=intents)
     validator.add_listener(usecase_did_user_already_signup, "on_message")
