@@ -22,7 +22,11 @@ def filter_rule_contains_name(search_text: str, message: MessageContent) -> bool
     -------
 
     """
-    if search_text == parser.new_user_logger_rule_001(message.text_content):
+
+    """ Rule: text_content is a command """
+    if message.text_content.strip().startswith("/"):
+        return False
+    elif search_text == parser.new_user_logger_rule_001(message.text_content):
         return True
     else:
         return False
@@ -58,6 +62,4 @@ async def get_member_reference_in_channel(
         channel_name, 5000
     )
 
-    return list(
-        filter(func.partial(filter_rule_contains_name, search_text), entries)
-    )
+    return list(filter(func.partial(filter_rule_contains_name, search_text), entries))

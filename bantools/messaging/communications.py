@@ -1,4 +1,4 @@
-from discord import utils, Guild, TextChannel, Embed, Color
+from discord import utils, Guild, TextChannel, Embed
 from bantools.messaging.warning_text import OfferMessage
 
 
@@ -41,7 +41,7 @@ class ChannelCommunicator:
         embed = Embed(
             color=0x5EEEAE,
             description=offend_message.description,
-            title="Duplicate 7-day trial entries"
+            title="Duplicate 7-day trial entries",
         )
 
         for field in offend_message.reference_links:

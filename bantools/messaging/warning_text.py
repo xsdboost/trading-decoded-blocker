@@ -15,6 +15,10 @@ class OfferMessage:
     reference_links: List[Field]
 
 
+def nothing_found(member_name: str) -> OfferMessage:
+    return OfferMessage(f"No entries found for user: **{member_name}**\n", [])
+
+
 def offender_found(member_reference: MemberReferenceCount) -> OfferMessage:
     """
     Parameters
