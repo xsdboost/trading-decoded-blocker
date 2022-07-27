@@ -125,7 +125,6 @@ async def find_references(ctx: Context, member_name: str):
     parse the message to get the memeber name from it's content
 
     """
-
     signup_count: MemberReferenceCount = await usecase_did_user_already_signup(
         discord_repo, member_name, config
     )

@@ -16,6 +16,17 @@ class OfferMessage:
 
 
 def nothing_found(member_name: str) -> OfferMessage:
+    """
+
+    Parameters
+    ----------
+    member_name: str
+        Member name that was searched
+
+    Returns
+    -------
+    Returns embed message specifying no results
+    """
     return OfferMessage(f"No entries found for user: **{member_name}**\n", [])
 
 
