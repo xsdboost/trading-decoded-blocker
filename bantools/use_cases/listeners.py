@@ -94,13 +94,16 @@ async def search_for_references(message: Message) -> None:
 
 
 @commands.command(name="verif", aliases=["check", "tf", "tc"])
-async def find_references(ctx: Context, member_name: str):
+async def find_references(ctx: Context, member_name: str) -> None:
     """
 
     Parameters
     ----------
-    message: Message
-        Message sent to any channel
+    ctx: Context
+        discord context
+
+    member_name: str
+        member_name searched
 
     Returns
     -------
